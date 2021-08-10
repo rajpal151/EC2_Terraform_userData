@@ -1,0 +1,14 @@
+resource "aws_instance" "MyNewInstance" {
+    ami = var.ami
+    instance_type = var.instance_type
+    key_name = "pemKeyPair"
+    vpc_security_group_ids = [aws_security_group.MyLab_Sec_Grp.id]
+    subnet_id = aws_subnet.MyLab-Subnet.id
+    associate_public_ip_address = true
+    user_data = file("./myScript.sh")
+
+    tags = {
+        Name = "MyNewInstance"
+    }
+
+}
